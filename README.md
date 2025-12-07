@@ -1,5 +1,7 @@
 # 🐺 DreamHunter | 🌙 DreamHints
 
+<img width="1024" height="1536" alt="DH-00 The First Hunt Card" src="https://github.com/user-attachments/assets/802733db-f7b2-4bf8-ad76-b1ae562252b2" />
+
 **DH – Dream + Hunter** (שם קוד למאגר הפיתוח)
 
 📅 תאריך:
