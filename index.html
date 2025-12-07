@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DreamHunter / DreamHints – DH Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DreamHunter / DreamHints – turn your dreams into daily hints, missions and victories." />
+  <style>
+    :root {
+      --bg-main: #050816;
+      --bg-soft: #0b1020;
+      --accent: #ff5df0;
+      --accent-2: #4ad5ff;
+      --accent-3: #ffe66b;
+      --text-main: #f5f5ff;
+      --text-soft: #b9b9d9;
+      --card: #101528;
+      --card-soft: #141a30;
+      --border-glow: rgba(255, 255, 255, 0.15);
+      --radius-xl: 22px;
+      --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #181b3d 0, #050816 55%, #02030a 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to right, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.5));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #ffe66b, #ff5df0 45%, #4ad5ff 80%);
+      box-shadow:
+        0 0 18px rgba(255, 99, 255, 0.7),
+        0 0 38px rgba(74, 213, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border-radius: 50%;
+      border: 2px solid rgba(5, 8, 22, 0.65);
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    nav a {
+      color: var(--text-soft);
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+      border-bottom-color: var(--accent-2);
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 4px 10px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(to right, rgba(10, 17, 40, 0.85), rgba(38, 11, 45, 0.75));
+    }
+
+    .pill span {
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 26px 18px 80px;
+    }
+
+    section {
+      margin-top: 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.5fr);
+      gap: 34px;
+      align-items: center;
+      padding-top: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-inner {
+        flex-wrap: wrap;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(120deg, #ffe66b, #ff5df0, #4ad5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--text-soft);
+      max-width: 480px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 20% 0%, #ffe66b, #ff5df0 45%, #4ad5ff 100%);
+      color: #060414;
+      box-shadow:
+        0 0 22px rgba(255, 99, 255, 0.45),
+        0 0 40px rgba(74, 213, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, rgba(20, 26, 53, 0.96), rgba(13, 21, 55, 0.96));
+      border-color: rgba(255, 255, 255, 0.16);
+      color: var(--text-main);
+    }
+
+    .hero-footnote {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 460px;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .orb-card {
+      background: radial-gradient(circle at top, #1f234b 0, #050816 50%, #02020a 100%);
+      border-radius: 30px;
+      border: 1px solid var(--border-glow);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px 18px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .orb-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 93, 240, 0.14), transparent 60%),
+        radial-gradient(circle at 90% 20%, rgba(74, 213, 255, 0.16), transparent 62%);
+      opacity: 0.9;
+      z-index: -1;
+    }
+
+    .orb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .orb-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .orb-tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(3, 7, 18, 0.7);
+    }
+
+    .orb-moon {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin: 12px auto 8px;
+      background:
+        radial-gradient(circle at 30% 20%, #ffffff, #ffe66b 40%, #ff5df0 70%, #050816 100%);
+      box-shadow:
+        0 0 60px rgba(255, 99, 255, 0.65),
+        0 0 85px rgba(74, 213, 255, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orb-moon::after {
+      content: "DH";
+      position: absolute;
+      inset: 26%;
+      border-radius: 50%;
+      border: 2px solid rgba(5, 8, 22, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
+      color: #050816;
+      background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.7), transparent 65%);
+    }
+
+    .orb-lines {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .orb-lines span {
+      display: block;
+    }
+
+    .orb-meta {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.18);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .orb-meta strong {
+      color: var(--text-main);
+    }
+
+    /* Sections */
+    .section-label {
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--accent-2);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 640px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 26px;
+    }
+
+    @media (max-width: 800px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #181c3b 0, #050816 60%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-glow);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-soft {
+      background: var(--card-soft);
+      border-radius: var(--radius-xl);
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span {
+      font-size: 18px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    ul.bullets {
+      list-style: none;
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+    }
+
+    ul.bullets li {
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      gap: 8px;
+    }
+
+    ul.bullets li span {
+      font-size: 16px;
+    }
+
+    /* Templates section */
+    .template-block {
+      margin-top: 18px;
+      background: linear-gradient(145deg, rgba(20, 26, 58, 0.98), rgba(8, 17, 46, 0.98));
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 13px;
+    }
+
+    .template-block code {
+      font-family: "JetBrains Mono", "Menlo", "SFMono-Regular", ui-monospace, monospace;
+      font-size: 12px;
+      color: #fefefe;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 3px 6px;
+      border-radius: 6px;
+    }
+
+    .template-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-3);
+      margin-bottom: 4px;
+    }
+
+    .template-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hint-line {
+      margin-bottom: 4px;
+    }
+
+    .hint-label {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+
+    /* Roadmap */
+    .timeline {
+      margin-top: 18px;
+      border-left: 1px dashed rgba(255, 255, 255, 0.22);
+      padding-left: 16px;
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 4px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 2px solid #050816;
+      background: radial-gradient(circle, #ffe66b, #ff5df0);
+      box-shadow: 0 0 12px rgba(255, 93, 240, 0.7);
+    }
+
+    .timeline-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .timeline-main {
+      font-weight: 600;
+    }
+
+    .timeline-note {
+      color: var(--text-soft);
+    }
+
+    /* Cards gallery placeholder */
+    .cards-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .mini-card {
+      background: radial-gradient(circle at top, #2a234b 0, #050816 55%);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 12px 12px 10px;
+      font-size: 12px;
+    }
+
+    .mini-card-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 4px;
+    }
+
+    .mini-card-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .mini-card-tag {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Rap + footer */
+    .rap-block {
+      margin-top: 26px;
+      padding: 16px 16px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at top, rgba(255, 93, 240, 0.12), rgba(5, 8, 22, 0.96));
+      font-size: 13px;
+      white-space: pre-line;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.8fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .footer-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .hashtags {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .credits-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+    }
+
+    .metric-line {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--accent-3);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Top Nav -->
+  <header>
+    <div class="nav-inner">
+      <div class="logo-mark">
+        <div class="logo-icon"></div>
+        <div>
+          <div class="logo-text-main">DreamHunter / DreamHints</div>
+          <div class="logo-text-sub">DH · Hunt Your Destiny</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#flow">Flow</a></li>
+          <li><a href="#templates">Daily Templates</a></li>
+          <li><a href="#cards">Ascension Cards</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#credits">Credits</a></li>
+        </ul>
+      </nav>
+      <div class="pill">
+        <span>🌙</span>
+        <span>DREAM → HINT → HUNT → WIN</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div>
+        <h1 class="hero-title">
+          🐺 <span class="hero-gradient">DreamHunter</span> / DreamHints
+        </h1>
+        <p class="hero-subtitle">
+          A cosmic portal where your dreams stop being “nice ideas” and start
+          becoming <strong>daily hints, missions and victories</strong>.  
+          Write it. Read it. Hunt it. Win it. ⚡
+        </p>
+
+        <div class="hero-badges">
+          <div class="pill">💠 DH – Dream + Hunter</div>
+          <div class="pill">🌒 Night Visions → Day Actions</div>
+          <div class="pill">🎴 Social Cards · Daily Posts · Missions</div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#templates" class="btn btn-primary">
+            🚀 Start with Today’s Hint
+          </a>
+          <a href="#cards" class="btn btn-secondary">
+            🎴 View Ascension Card System
+          </a>
+        </div>
+
+        <p class="hero-footnote">
+          This site is the living hub for the
+          <strong>DreamHunter-DH</strong> universe – texts, cards, missions, music
+          prompts and social content, all aligned to one thing:  
+          <strong>hunt your destiny with holy fire</strong>. 🔥
+        </p>
+      </div>
+
+      <div class="hero-right">
+        <div class="orb-card">
+          <div class="orb-header">
+            <div>
+              <div class="orb-title">Tonight’s Core Signal</div>
+              <div style="font-size:11px;color:var(--text-soft);">
+                “Dreams are encrypted previews of your future self.”
+              </div>
+            </div>
+            <div class="orb-tag">🌌 DH-00 · First Hunt</div>
+          </div>
+
+          <div class="orb-moon"></div>
+
+          <div class="orb-lines">
+            <span>🌙 <strong>Dream:</strong> “You’re running with a pack under a full moon.”</span>
+            <span>💡 <strong>Hint:</strong> You are not meant to fight alone.</span>
+            <span>🎯 <strong>Hunt:</strong> Message one person who can run with you today.</span>
+          </div>
+
+          <div class="orb-meta">
+            <div>
+              <strong>Mode:</strong> DreamHunter / Community
+            </div>
+            <div>
+              <strong>Code:</strong> DH-PORTAL-00
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-label">About · Vision</div>
+      <h2 class="section-title">🌙 What is DreamHunter / DreamHints?</h2>
+      <p class="section-subtitle">
+        DreamHunter is the warrior side. DreamHints is the whisper side.
+        Together they form a system that turns <strong>night symbols</strong> into
+        <strong>day decisions</strong>. Every dream becomes a hint. Every hint becomes
+        a mission. Every mission becomes a win.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">💡 DreamHints – The Signals</div>
+          <p>
+            Short, sharp, social-friendly lines that capture the essence of a dream
+            or inner desire and turn it into a clear hint. They are made to be
+            shared as:
+          </p>
+          <ul class="bullets">
+            <li><span>📱</span><span>Daily posts and stories across your social platforms.</span></li>
+            <li><span>🎴</span><span>Ascension-style cards for print, decks and reels.</span></li>
+            <li><span>🧠</span><span>Mind-anchors you read every morning and night.</span></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🐺 DreamHunter – The Warrior</div>
+          <p>
+            The hunter is the part of you that refuses to let dreams fade.
+            It translates hints into concrete tasks, streaks and rituals:
+          </p>
+          <ul class="bullets">
+            <li><span>🎯</span><span>Daily missions: one focused move per hint.</span></li>
+            <li><span>📊</span><span>Progress logs, streak counters and win boards.</span></li>
+            <li><span>🔥</span><span>High-energy rap, music and visuals to fuel the hunt.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flow -->
+    <section id="flow">
+      <div class="section-label">System · Flow</div>
+      <h2 class="section-title">🔁 From Dream to Win – The DH Flow</h2>
+      <p class="section-subtitle">
+        The DH Flow is simple but powerful. It gives you a repeatable pattern
+        for content, for inner work, and for your community.
+      </p>
+
+      <div class="grid-2">
+        <div class="card-soft">
+          <div class="card-title"><span>1️⃣</span> Dream → Symbol</div>
+          <p>
+            At night, in meditation, or in sudden ideas – you notice a symbol:
+            wolves, ocean, fire, flight, doors, stairs, storms, light, etc.
+          </p>
+          <ul class="bullets">
+            <li><span>📝</span><span>Write it in a simple line: <strong>“Theme of the dream.”</strong></span></li>
+            <li><span>👁️</span><span>Capture one emotion and one color from the dream.</span></li>
+          </ul>
+        </div>
+
+        <div class="card-soft">
+          <div class="card-title"><span>2️⃣</span> Symbol → Hint</div>
+          <p>
+            You convert the symbol into a line that speaks directly to your life:
+          </p>
+          <ul class="bullets">
+            <li><span>💡</span><span><strong>Hint:</strong> “Your pack is ready. Stop hiding your roar.”</span></li>
+            <li><span>📣</span><span>This becomes the core of a DH social post or card.</span></li>
+          </ul>
+        </div>
+
+        <div class="card-soft">
+          <div class="card-title"><span>3️⃣</span> Hint → Hunt</div>
+          <p>
+            Every hint must trigger an action. No hint stays “only inspiration”.
+          </p>
+          <ul class="bullets">
+            <li><span>🎯</span><span><strong>Mission:</strong> one move you can do in 5–20 minutes.</span></li>
+            <li><span>📆</span><span>Track it in a streak: DH-Day 01, 02, 03, …</span></li>
+          </ul>
+        </div>
+
+        <div class="card-soft">
+          <div class="card-title"><span>4️⃣</span> Hunt → Win</div>
+          <p>
+            You celebrate visible wins and inner shifts. Each win can become:
+          </p>
+          <ul class="bullets">
+            <li><span>🏆</span><span>Story or post with the tag <code>#DreamHunterWin</code>.</span></li>
+            <li><span>📜</span><span>Card in the DH Ascension deck (DH-01, DH-02, …).</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Templates -->
+    <section id="templates">
+      <div class="section-label">Content · Templates</div>
+      <h2 class="section-title">📲 Daily DreamHints & DreamHunter Missions</h2>
+      <p class="section-subtitle">
+        Use these templates for social posts, reels scripts, or card texts.
+        Replace the words in <code>[brackets]</code> and you are ready to post.
+      </p>
+
+      <div class="template-block">
+        <div class="template-label">Template · DreamHints Post</div>
+        <div class="template-title">🌙 DreamHints – Single Image / Card Caption</div>
+
+        <div class="hint-line">
+          <span class="hint-label">Hook:</span>
+          <span>“Last night your soul showed you <code>[symbol]</code> for a reason.”</span>
+        </div>
+        <div class="hint-line">
+          <span class="hint-label">Body:</span>
+          <span>
+            “When you dream of <code>[symbol]</code>, your spirit is whispering:
+            <strong><code>[meaning in one line]</code></strong>.
+            Today refuse to ignore this. Let it guide your next move.”
+          </span>
+        </div>
+        <div class="hint-line">
+          <span class="hint-label">Call to Action:</span>
+          <span>
+            “Comment ‘HUNT’ if you feel the pull of this hint and you are ready
+            to move with it today.”
+          </span>
+        </div>
+      </div>
+
+      <div class="template-block">
+        <div class="template-label">Template · DreamHunter Mission</div>
+        <div class="template-title">🐺 DreamHunter – Daily Mission Block</div>
+
+        <div class="hint-line">
+          <span class="hint-label">Code:</span>
+          <span><code>DH-MISSION-[day]</code></span>
+        </div>
+        <div class="hint-line">
+          <span class="hint-label">Mission:</span>
+          <span>
+            “Today, I will <strong><code>[one concrete action]</code></strong>
+            to honor the hint: <strong><code>[core hint sentence]</code></strong>.”
+          </span>
+        </div>
+        <div class="hint-line">
+          <span class="hint-label">Completion:</span>
+          <span>
+            “When complete, I write: <code>[DH-Day XX – HUNT COMPLETE]</code> in my log.”
+          </span>
+        </div>
+      </div>
+
+      <div class="template-block">
+        <div class="template-label">Template · Social Carousel</div>
+        <div class="template-title">📚 5-Slide Carousel: From Dream to Win</div>
+        <ul class="bullets" style="margin-top:8px;">
+          <li><span>1️⃣</span><span><strong>Slide 1:</strong> “You didn’t dream it for nothing.”</span></li>
+          <li><span>2️⃣</span><span><strong>Slide 2:</strong> Explain the symbol <code>[symbol]</code> in 1–2 lines.</span></li>
+          <li><span>3️⃣</span><span><strong>Slide 3:</strong> Turn it into a hint: <code>[hint]</code>.</span></li>
+          <li><span>4️⃣</span><span><strong>Slide 4:</strong> Give one mission: <code>[action]</code>.</span></li>
+          <li><span>5️⃣</span><span><strong>Slide 5:</strong> Invite them to share their dream + tag <code>#DreamHunter</code>.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section id="cards">
+      <div class="section-label">Cards · Ascension System</div>
+      <h2 class="section-title">🎴 DreamHunter Ascension Cards (DH-Series)</h2>
+      <p class="section-subtitle">
+        Each card is a fusion of image, hint and mission.
+        Text is in English only for universal reach. Visual style can follow the
+        SparKing Ascension language: cosmic backgrounds, lightning, neon auras, etc.
+      </p>
+
+      <div class="cards-grid">
+        <div class="mini-card">
+          <div class="mini-card-label">DH-00 · Cover</div>
+          <div class="mini-card-title">“The First Hunt”</div>
+          <div class="mini-card-tag">
+            The gateway card – logo, motto, and the 4-step DH Flow.
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-label">DH-01</div>
+          <div class="mini-card-title">“Pack of Light”</div>
+          <div class="mini-card-tag">
+            From loneliness to soul-pack. Mission: reach out to one ally.
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-label">DH-02</div>
+          <div class="mini-card-title">“Storm Signal”</div>
+          <div class="mini-card-tag">
+            When life shakes you – it’s a divine alert, not random chaos.
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-label">DH-03</div>
+          <div class="mini-card-title">“Open Door Dream”</div>
+          <div class="mini-card-tag">
+            Doors in dreams → doors in life. Mission: knock on a new opportunity.
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-label">DH-04</div>
+          <div class="mini-card-title">“Sky Run”</div>
+          <div class="mini-card-tag">
+            Flight dreams = you outgrowing your old limits. Mission: level up one skill.
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-label">DH-05</div>
+          <div class="mini-card-title">“Lion Heart Night”</div>
+          <div class="mini-card-tag">
+            Courage codes appear as beasts of light. Mission: face one fear today.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap">
+      <div class="section-label">Build · Roadmap</div>
+      <h2 class="section-title">🛣️ DreamHunter-DH – Build Phases</h2>
+      <p class="section-subtitle">
+        This roadmap guides the evolution of the project from a single page into
+        a full creative ecosystem of decks, music, videos and tools.
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-tag">Phase 1 · Now</div>
+          <div class="timeline-main">Static Portal + Core Templates</div>
+          <div class="timeline-note">
+            Launch this GitHub Pages site, define 10+ DreamHints and 10+ Missions,
+            design DH-00 to DH-05 cards as a first mini-deck.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-tag">Phase 2 · Social Engine</div>
+          <div class="timeline-main">Daily DH Content Flow</div>
+          <div class="timeline-note">
+            Turn templates into daily posts, reels and stories. Create a hashtag
+            ecosystem: <code>#DreamHunter</code>, <code>#DreamHints</code>,
+            <code>#FirstHunt</code>, <code>#HuntYourDestiny</code>.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-tag">Phase 3 · Audio & Rap</div>
+          <div class="timeline-main">HollyRap x DreamHunter</div>
+          <div class="timeline-note">
+            Build rap tracks and soundscapes that match DH cards.
+            Each track = one card, one hint, one mission, one drop.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-tag">Phase 4 · Tools</div>
+          <div class="timeline-main">Interactive Dream Log & Deck Builder</div>
+          <div class="timeline-note">
+            Web tools for logging dreams, auto-generating hints and building custom
+            card layouts for print or digital decks.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rap Chorus -->
+    <section>
+      <div class="section-label">Vibe · Anthem</div>
+      <h2 class="section-title">🎤 DH Rap Hook – Social Ready</h2>
+      <p class="section-subtitle">
+        Use this as a pinned caption, reel voice-over or hook for a track.
+      </p>
+
+      <div class="rap-block">
+I’m a DreamHunter moving through the midnight code,  
+Turning every little vision to a warrior-mode,  
+From a hint to a mission, then a win in my hand,  
+DreamHints on the beat – I’m redesigning my land. ⚡
+      </div>
+    </section>
+
+    <!-- Footer: Credits, Pasuk, Hashtags -->
+    <footer id="credits">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-title">📖 Pasuk · Dream & Prophecy</div>
+          <p>
+            “בַּחֲלוֹם אֲדַבֶּר־בּוֹ”  
+            (במדבר י״ב, ו׳)
+          </p>
+          <p style="margin-top:6px;">
+            The Creator uses dreams as one of the channels to speak with the soul.
+            DreamHunter is your decision to listen – and then take action.
+          </p>
+
+          <div class="metric-line">
+            ⚖️ מספר המידות בפעולה כאן: <strong>13</strong> – י״ג מידות הרחמים,  
+            להביא רחמים, חסד ואומץ לכל ציד חלום.
+          </div>
+
+          <div class="hashtags">
+            #DreamHunter #DreamHints #FirstHunt #HuntYourDestiny  
+            #SparKingAscension #AnLoMinus #LeonYaakobov #HolyRap
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">🧾 Credits & Repositories</div>
+          <ul class="credits-list">
+            <li>👤 Concept & Creative Engine: <strong>AnLoMinus – Leon Yaakobov</strong></li>
+            <li>🕸️ Main Portal Repo: <a href="https://github.com/anlominus/DreamHunter-DH" target="_blank" rel="noopener">github.com/anlominus/DreamHunter-DH</a></li>
+            <li>🌐 GitHub Pages Site: <a href="https://anlominus.github.io/DreamHunter-DH/" target="_blank" rel="noopener">anlominus.github.io/DreamHunter-DH/</a></li>
+            <li>🧱 Infra & Structure: <strong>RepoCraft (RC)</strong> – project skeletons and docs culture.</li>
+            <li>⚡ Visual & Card DNA: <strong>SparKing Ascension Style</strong> – cosmic, holographic, electric.</li>
+          </ul>
+          <p style="margin-top:8px;">
+            This page is the starting web-node of the DreamHunter / DreamHints vault.  
+            From here you can connect decks, music, tools, and every future DH expansion.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:18px;font-size:11px;">
+        Generated for DreamHunter / DreamHints (DH) – Date: 07.12.2025 · י״ז כסלו תשפ״ו · Time: 03:00 (Israel).
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
